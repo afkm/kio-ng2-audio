@@ -9,6 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "assets/audio/indiff.mp3",
+        "assets/audio/punk elephant.mp3",
         "favicon.ico"
       ],
       "index": "index.html",
