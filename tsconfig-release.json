@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "audioplayer",
+    "baseUrl": "./src",
     "sourceMap": true,
     "declaration": true,
     "moduleResolution": "node",
@@ -14,7 +14,8 @@
     "lib": [
       "es2016",
       "dom"
-    ]
+    ],
+    "outDir": "./release"
   },
   "files": [
     "./audioplayer/index.ts"

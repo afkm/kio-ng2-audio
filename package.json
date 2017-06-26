@@ -2,12 +2,16 @@
   "name": "kio-ng2-audio",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "./audioplayer",
+  "typings": "./audioplayer/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig-release.json"
   },
   "private": true,
   "dependencies": {
     "@angular/core": "^4.0.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "core-js": "^2.4.1",
