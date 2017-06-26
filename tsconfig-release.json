@@ -15,5 +15,12 @@
       "es2016",
       "dom"
     ]
-  }
+  },
+  "files": [
+    "./audioplayer/index.ts"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./test-app"
+  ]
 }
