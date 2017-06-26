@@ -1,0 +1,17 @@
+<div>
+  <label>State</label>
+  <span>{{ audioStateLabel }}</span>
+</div>
+<nav>
+  <button *ngIf="!isPlaying" type="button" [disabled]="(!audioPlayer || (audioState<2))" (click)="onBtnPlay($event)">Play</button>
+  <button *ngIf="isPlaying" type="button" [disabled]="!audioPlayer" (click)="onBtnPause($event)">Pause</button>
+  <button type="button" [disabled]="!audioPlayer" (click)="onBtnReset($event)">Reset</button>
+</nav>
+<div>
+  <progress [value]="progress" [max]="100"></progress>
+</div>
+<code>
+  <ol>
+    <li *ngFor="let dev_log of dev_logs">{{ dev_log }}</li>
+  </ol>
+</code>

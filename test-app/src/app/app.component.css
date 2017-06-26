@@ -1,0 +1,25 @@
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li div div {
+  display: inline;
+}
+
+label {
+  font-weight: bolder;
+  margin-right: 10px;
+}
+
+
+button {
+
+}
+
+ul li.selected {
+  padding-left: 10px;
+  border-left: 2px solid black;
+}

@@ -1,0 +1,20 @@
+<ng-container *ngIf="!!sources">
+  <h5>Sources</h5>
+  <ul>
+    <li *ngFor="let source of sources; let idx = index" [ngClass]="{'selected': (sourceIndex==idx)}">
+      <div>
+        <div><label>url</label></div>
+        <div>{{ source.url }}</div>
+      </div>
+      <div>
+        <div><label>mimeType</label></div>
+        <div>{{ source.mimeType }}</div>
+      </div>
+      <div>
+        <button type="button" (click)="onSelectSource(source)">Select</button>
+      </div>
+    </li>
+  </ul>
+  <h3>Player</h3>
+  <app-audio-player [audioSource]="sources[sourceIndex]"></app-audio-player>
+</ng-container>
