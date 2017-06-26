@@ -2,8 +2,8 @@
   "name": "kio-ng2-audio",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "./audioplayer",
-  "typings": "./audioplayer/index.d.ts",
+  "main": "./release",
+  "typings": "./release/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig-release.json"
   },
