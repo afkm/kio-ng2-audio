@@ -3,6 +3,10 @@ import * as Rx from 'rxjs'
 import { AudioSource, AudioEvents, AudioEventEmitters, AudioEventSubscriptions } from '../interfaces'
 import { AudioState } from '../states.enum'
 
+
+/**
+ * Kio audio interface implementation with HTML5
+ */
 export class AudioPlayer {
 
   constructor(source? : AudioSource){
@@ -12,6 +16,9 @@ export class AudioPlayer {
     }
   }
 
+  /**
+   * observable wrapped HTML5 event emitters
+   */
   readonly events : AudioEventEmitters = {
       progress: new EventEmitter<Event>(),
       metadata: new EventEmitter<Event>(),
@@ -28,6 +35,10 @@ export class AudioPlayer {
       canplaythrough: new EventEmitter<Event>()
     }
   
+
+  /**
+   * audio state observable
+   */
   public audioStates : Rx.Observable<AudioState> = Rx.Observable.merge (
     this.events.loadstart.mapTo(AudioState.loading),
     this.events.metadata.mapTo(AudioState.loading),
@@ -80,11 +91,23 @@ export class AudioPlayer {
   private _source : AudioSource
   private _audioRef : HTMLAudioElement
 
+  private _stateSubscription : Rx.Subscription = this.audioStates.subscribe ( nextState => {
+    this._audioState = nextState
+    this._isPlaying = ( this._audioState === AudioState.playing )
+    this._isReady = ( this._audioState === AudioState.loading || this._audioState === AudioState.finished )
+    this._isFinished = ( this._audioState === AudioState.finished )
+  } )
+
 
   /** getter */
 
   //get events() { return this._events }
 
+  get paused() : boolean {
+    return !this._isPlaying
+    //return this._audioRef && !this._audioRef.paused
+  }
+  
   get isPlaying() : boolean {
     return this._isPlaying
     //return this._audioRef && !this._audioRef.paused
@@ -116,14 +139,20 @@ export class AudioPlayer {
   }
 
   setSource ( audioSource : AudioSource ) {
+    if ( this._source )
+    {
+      this.reset()
+      this.unsubscribeEvents()
+    }
+    this._source = audioSource
+
     if ( !this._audioRef )
     {
-      this.setupAudioElement (audioSource)
+      this.setupAudioElement (this._source)
     }
     else 
     {
-      this.reset()
-      this._audioRef.src = audioSource.url
+      this._audioRef.src = this._source.url
     }
 
   }
@@ -147,6 +176,8 @@ export class AudioPlayer {
 
   private unsubscribeEvents() {
     for ( var eventName in this._eventSubscriptions ) {
+      if ( !this._eventSubscriptions[eventName] )
+        return
       this._eventSubscriptions[eventName].unsubscribe()
       this._eventSubscriptions[eventName] = undefined
     }

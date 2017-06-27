@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./src",
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -15,10 +15,13 @@
       "es2016",
       "dom"
     ],
-    "outDir": "./release"
+    "outDir": "./build"
   },
   "files": [
     "./src/index.ts"
+  ],
+  "include": [
+    "./src/**/*.ts"
   ],
   "exclude": [
     "./node_modules",

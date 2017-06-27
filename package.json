@@ -5,7 +5,11 @@
   "main": "./release",
   "typings": "./release/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig-release.json"
+    "deploy:linked": "scp -r ./build/. ../kio-ng2-audio.link/release && scp -r ./src ../kio-ng2-audio.link/",
+    "deploy:linked:release": "scp -r ./release/. ../kio-ng2-audio.link/release",
+    "build:release": "tsc -p tsconfig-release.json",
+    "build": "tsc -p tsconfig.json",
+    "postbuild": "npm run deploy:linked"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +40,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
+    "typedoc": "^0.7.1",
     "typescript": "~2.3.3"
   }
 }

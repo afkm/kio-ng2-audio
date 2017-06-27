@@ -1,9 +1,18 @@
 import * as Rx from 'rxjs';
 import { AudioSource, AudioEvents, AudioEventEmitters } from '../interfaces';
 import { AudioState } from '../states.enum';
+/**
+ * Kio audio interface implementation with HTML5
+ */
 export declare class AudioPlayer {
     constructor(source?: AudioSource);
+    /**
+     * observable wrapped HTML5 event emitters
+     */
     readonly events: AudioEventEmitters;
+    /**
+     * audio state observable
+     */
     audioStates: Rx.Observable<AudioState>;
     /**
      * emits pairs of number values;
@@ -18,7 +27,9 @@ export declare class AudioPlayer {
     private _audioState;
     private _source;
     private _audioRef;
+    private _stateSubscription;
     /** getter */
+    readonly paused: boolean;
     readonly isPlaying: boolean;
     readonly isReady: boolean;
     readonly isFinished: boolean;

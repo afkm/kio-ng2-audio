@@ -2,7 +2,8 @@ import * as Rx from 'rxjs'
 import { 
   Component, Input, 
   OnInit, OnChanges, OnDestroy,
-  SimpleChanges, SimpleChange
+  SimpleChanges, SimpleChange,
+  ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser'
 
@@ -39,7 +40,8 @@ function logState ( state:string ) {
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
-  styleUrls: ['./audio-player.component.css']
+  styleUrls: ['./audio-player.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AudioPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -55,7 +57,6 @@ export class AudioPlayerComponent implements OnInit, OnDestroy, OnChanges {
   currentTime:number=0
   duration:number=-1
 
-  dev_logs:string[]=[]
 
   protected audioPlayer:AudioPlayer
 
@@ -107,7 +108,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
 
     const stateSubscription = audioPlayer.audioStates.subscribe ( nextState => {
-      this.log(`AudioState.${AudioState[nextState]} (${nextState})`)
+      this.log(` AudioState.${AudioState[nextState]} (${nextState})`)
       this._updateState(nextState)
     }, console.error, () => {
       console.log('Audio states subscription finished.' )
@@ -139,8 +140,12 @@ export class AudioPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.log(`${event.timeStamp} @${event.type}`)
   }
 
+  dev_logs:[string,string][]=[]
+
   private log ( text:string ) {
-    this.dev_logs.push ( text )
+    const parts = text.split(' ')
+
+    this.dev_logs.unshift ( [ parts.shift() , parts.join(' ') ] )
   }
 
   ngOnChanges ( changes:SimpleChanges ) {

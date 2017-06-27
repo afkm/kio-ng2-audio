@@ -12,6 +12,10 @@
 </div>
 <code>
   <ol>
-    <li *ngFor="let dev_log of dev_logs">{{ dev_log }}</li>
+    <li *ngFor="let dev_log of dev_logs">
+      <div *ngFor="let dev_log_item of dev_log">
+        {{ dev_log_item }}
+      </div>
+    </li>
   </ol>
 </code>
